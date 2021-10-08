@@ -1,77 +1,100 @@
 package view;
 
+import javax.swing.JDesktopPane;
+import javax.swing.JMenu;
+
 public class MainView extends javax.swing.JFrame {
 
     public MainView() {
         initComponents();
+        setVisible(true);
+        setLocationRelativeTo(null);
     }
+
+    public JMenu getjMenu_Alumnos() {
+        return jMenu_Alumnos;
+    }
+
+    public JMenu getjMenu_Libros() {
+        return jMenu_Libros;
+    }
+
+    public JMenu getjMenu_Prestamos() {
+        return jMenu_Prestamos;
+    }
+
+    public JMenu getjMenu_Usuarios() {
+        return jMenu_Usuarios;
+    }
+
+    public JDesktopPane getDesktop() {
+        return Desktop;
+    }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        Desktop = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        jMenu_Usuarios = new javax.swing.JMenu();
+        jMenu_Libros = new javax.swing.JMenu();
+        jMenu_Alumnos = new javax.swing.JMenu();
+        jMenu_Prestamos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tu Biblioteca");
+        setMaximumSize(new java.awt.Dimension(850, 655));
 
-        jPanel1.setBackground(new java.awt.Color(222, 234, 232));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jDesktopPane1.setBackground(new java.awt.Color(222, 234, 232));
+        Desktop.setBackground(new java.awt.Color(222, 234, 232));
+        Desktop.setPreferredSize(new java.awt.Dimension(1018, 569));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bib.jpg"))); // NOI18N
 
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Desktop.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
+        Desktop.setLayout(DesktopLayout);
+        DesktopLayout.setHorizontalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DesktopLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+        DesktopLayout.setVerticalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DesktopLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 550));
+        jMenuBar1.setBackground(new java.awt.Color(242, 247, 246));
 
-        jMenuBar1.setBackground(new java.awt.Color(222, 234, 232));
+        jMenu_Usuarios.setBackground(new java.awt.Color(222, 234, 232));
+        jMenu_Usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user2.png"))); // NOI18N
+        jMenu_Usuarios.setText("Usuarios");
+        jMenu_Usuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenuBar1.add(jMenu_Usuarios);
 
-        jMenu1.setBackground(new java.awt.Color(222, 234, 232));
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user2.png"))); // NOI18N
-        jMenu1.setText("Usuarios");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jMenuBar1.add(jMenu1);
+        jMenu_Libros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros.png"))); // NOI18N
+        jMenu_Libros.setText("Libros");
+        jMenu_Libros.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenuBar1.add(jMenu_Libros);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros.png"))); // NOI18N
-        jMenu2.setText("Libros");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jMenuBar1.add(jMenu2);
+        jMenu_Alumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/alumno2.png"))); // NOI18N
+        jMenu_Alumnos.setText("Alumnos");
+        jMenu_Alumnos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenuBar1.add(jMenu_Alumnos);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/alumno2.png"))); // NOI18N
-        jMenu3.setText("Alumnos");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/prestamo.png"))); // NOI18N
-        jMenu4.setText("Préstamos");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jMenuBar1.add(jMenu4);
+        jMenu_Prestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/prestamo.png"))); // NOI18N
+        jMenu_Prestamos.setText("Préstamos");
+        jMenu_Prestamos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenuBar1.add(jMenu_Prestamos);
 
         setJMenuBar(jMenuBar1);
 
@@ -79,24 +102,23 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 921, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane Desktop;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu jMenu_Alumnos;
+    private javax.swing.JMenu jMenu_Libros;
+    private javax.swing.JMenu jMenu_Prestamos;
+    private javax.swing.JMenu jMenu_Usuarios;
     // End of variables declaration//GEN-END:variables
 }
