@@ -6,11 +6,10 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import model.LoginModel;
 import view.LoginView;
-import view.MainView;
 
 /**
  *
- * @author Laura
+ * @author LauraTD
  */
 public class LoginController implements ActionListener {
 
@@ -48,9 +47,9 @@ public class LoginController implements ActionListener {
 
     private void aceptar() {
         loadUser();
-        if (model.validateUserPassword(user)) {
-            MainView view2 = new MainView();
+        if (model.validateUserPassword(user)) {            
             view.dispose();
+            new MainController();
         }
     }
 
