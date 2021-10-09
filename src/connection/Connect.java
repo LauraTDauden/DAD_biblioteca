@@ -19,7 +19,7 @@ public class Connect {
     public Connect() throws SQLException {
         loadDriver();
         con = DriverManager.getConnection(url, user, password);
-        JOptionPane.showMessageDialog(null, "Conectado a la base de datos.");
+        //JOptionPane.showMessageDialog(null, "Conectado a la base de datos.");
     }
     
     public Connection getCon() {

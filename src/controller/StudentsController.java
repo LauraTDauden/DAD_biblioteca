@@ -14,21 +14,19 @@ public class StudentsController implements ActionListener {
     //StudentsModel model;
     //Student student;
 
-    public StudentsController(){
-        if (view != null){
-            view.dispose();
+    public StudentsController() {
+        if (view == null) {
+            view = new StudentsView();
+            MainController.getView().getDesktop().add(view).setVisible(true);
         }
-        view = new StudentsView();
-        MainController.getView().getDesktop().add(view).setVisible(true);
-        
+
         //initializeButtons();
         //model = new StudentsModel();
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
     }
 
     /*   private void initializeButtons() {
