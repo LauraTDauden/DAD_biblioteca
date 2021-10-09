@@ -13,15 +13,21 @@ import view.LoginView;
  */
 public class LoginController implements ActionListener {
 
-    LoginView view;
-    LoginModel model;
-    User user;
+    private LoginView view;
+    private LoginModel model;
+    private User user;
+    private MainController mainController;
 
     public LoginController() throws SQLException {
         view = new LoginView();
         initializeButtons();
         model = new LoginModel();
     }
+
+    public MainController getMainController() {
+        return mainController;
+    }
+       
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -49,7 +55,7 @@ public class LoginController implements ActionListener {
         loadUser();
         if (model.validateUserPassword(user)) {            
             view.dispose();
-            new MainController();
+            mainController = new MainController();
         }
     }
 

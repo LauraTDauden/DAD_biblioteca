@@ -2,6 +2,9 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import view.MainView;
 
 /**
@@ -22,10 +25,18 @@ public class MainController implements MouseListener {
         initializeButtons();
     }
 
+    public StudentsController getStudentsController() {
+        return studentsController;
+    }    
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(view.getjMenu_Alumnos())) {
-            studentsController = new StudentsController();
+            try {
+                studentsController = new StudentsController();
+            } catch (SQLException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
