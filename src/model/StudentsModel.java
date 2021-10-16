@@ -5,6 +5,7 @@ import dto_entities.Student;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,7 @@ public class StudentsModel {
     public DataQueries getQuery() {
         return query;
     }
-        
+
     //CRUD  
     //alta (CREATE)
     public void add(Student student) {
@@ -40,23 +41,62 @@ public class StudentsModel {
         try {
             query.SQLQuery("SELECT * FROM alumnos WHERE dni LIKE '" + fieldText + "%'"
                     + "OR nombre LIKE '" + fieldText + "%'"
-                            + "OR apellido1 LIKE '" + fieldText + "%'"
-                                    + "OR apellido2 LIKE '" + fieldText + "%'");
+                    + "OR apellido1 LIKE '" + fieldText + "%'"
+                    + "OR apellido2 LIKE '" + fieldText + "%'");
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //modificar (UPDATE)
-    
+    public void modificarDatos(Student student) {
+        boolean changes = false;
+        try {
+            if (!student.getName().isBlank()) {
+                updateName(student);
+                changes = true;
+            }
+            if (!student.getSurname1().isBlank()) {
+                updateSurname1(student);
+                changes = true;
+            }
+            if (!student.getSurname2().isBlank()) {
+                updateSurname2(student);
+                changes = true;
+            }
+            if (changes) {
+                JOptionPane.showMessageDialog(null, "Datos actualizados con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No ha introducido ningún dato para modificar.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateName(Student student) throws SQLException {
+        query.SQLUpdate("UPDATE alumnos SET nombre='" + student.getName() + "'"
+                + "WHERE dni = '" + student.getDni() + "'");
+    }
+
+    private void updateSurname1(Student student) throws SQLException {
+        query.SQLUpdate("UPDATE alumnos SET apellido1='" + student.getSurname1() + "'"
+                + "WHERE dni = '" + student.getDni() + "'");
+    }
+
+    private void updateSurname2(Student student) throws SQLException {
+        query.SQLUpdate("UPDATE alumnos SET apellido2='" + student.getSurname2() + "'"
+                + "WHERE dni = '" + student.getDni() + "'");
+    }
+
     //baja (DELETE)
-    public void delete(String dni){
+    public void delete(String dni) {
         try {
             query.SQLUpdate("DELETE FROM alumnos WHERE dni ='" + dni + "'");
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
 }

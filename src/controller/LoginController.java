@@ -1,8 +1,7 @@
 package controller;
 
 import dto_entities.User;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import events.LoginEvents;
 import java.sql.SQLException;
 import model.LoginModel;
 import view.LoginView;
@@ -11,38 +10,32 @@ import view.LoginView;
  *
  * @author LauraTD
  */
-public class LoginController implements ActionListener {
+public class LoginController {
 
     private LoginView view;
     private LoginModel model;
     private User user;
     private MainController mainController;
+    private LoginEvents events;
 
     public LoginController() throws SQLException {
         view = new LoginView();
+        events = new LoginEvents(this);
         initializeButtons();
-        model = new LoginModel();
+        model = new LoginModel();       
     }
 
+    public LoginView getView() {
+        return view;
+    }
+        
     public MainController getMainController() {
         return mainController;
     }
-       
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(view.getjButton_Aceptar())) {
-            aceptar();
-        }
-
-        if (e.getSource().equals(view.getjButton_Cancelar())) {
-            cancelar();
-        }
-    }
-
+   
     private void initializeButtons() {
-        view.getjButton_Aceptar().addActionListener(this);
-        view.getjButton_Cancelar().addActionListener(this);
+        view.getjButton_Aceptar().addActionListener(events);
+        view.getjButton_Cancelar().addActionListener(events);
     }
 
     private void loadUser() {
@@ -51,16 +44,20 @@ public class LoginController implements ActionListener {
         user.setPass(String.valueOf(view.getjPasswordField_pass().getPassword())); //hay que parsear, ya que la contraseña se guarda como un array de tipo char
     }
 
-    private void aceptar() {
+    public void aceptar() {
         loadUser();
-        if (model.validateUserPassword(user)) {            
+        if (model.validateUserPassword(user)) {
             view.dispose();
             mainController = new MainController();
         }
     }
 
-    private void cancelar() {
+    public void cancelar() {
         view.getjPasswordField_pass().setText("");
         view.getjTextField_user().setText("");
+
+        //acceso rápido sin contraseña para facilitar las pruebas en el desarrollo
+        view.dispose();
+        mainController = new MainController();
     }
 }

@@ -38,10 +38,11 @@ public class StudentsView extends javax.swing.JInternalFrame {
         jButton_modificar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton4_limpiar = new javax.swing.JButton();
-        jButton_buscar = new javax.swing.JButton();
+        jButton_listar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(222, 234, 232));
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setTitle("Alumnos");
 
@@ -65,6 +66,7 @@ public class StudentsView extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         jLabel1.setText("Buscar alumno :");
+        jLabel1.setToolTipText("Por DNI, Nombre o Apellido");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Alumnos"));
 
@@ -144,13 +146,11 @@ public class StudentsView extends javax.swing.JInternalFrame {
 
         jButton4_limpiar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jButton4_limpiar.setText("Limpiar");
-        jButton4_limpiar.setToolTipText("");
         jButton4_limpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton_buscar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        jButton_buscar.setText("Buscar");
-        jButton_buscar.setToolTipText("");
-        jButton_buscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton_listar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jButton_listar.setText("Listar");
+        jButton_listar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +180,7 @@ public class StudentsView extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jTextField_searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_listar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jButton4_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
@@ -207,7 +207,7 @@ public class StudentsView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_listar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -230,7 +230,7 @@ public class StudentsView extends javax.swing.JInternalFrame {
     }
 
     public JButton getjButton_listar() {
-        return jButton_buscar;
+        return jButton_listar;
     }
 
     public JButton getjButton_modificar() {
@@ -266,7 +266,7 @@ public class StudentsView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton4_limpiar;
     private javax.swing.JButton jButton_alta;
     private javax.swing.JButton jButton_baja;
-    private javax.swing.JButton jButton_buscar;
+    private javax.swing.JButton jButton_listar;
     private javax.swing.JButton jButton_modificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

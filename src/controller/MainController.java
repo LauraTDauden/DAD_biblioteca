@@ -1,7 +1,6 @@
 package controller;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import events.MainEvents;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,59 +10,43 @@ import view.MainView;
  *
  * @author Laura
  */
-public class MainController implements MouseListener {
+public class MainController {
 
     private static MainView view;
     private StudentsController studentsController;
-
-    public static MainView getView() {
-        return view;
-    }
+    private MainEvents events;
 
     public MainController() {
         view = new MainView();
+        events = new MainEvents(this);
         initializeButtons();
+    }
+
+    public MainView getView() {
+        return view;
     }
 
     public StudentsController getStudentsController() {
         return studentsController;
-    }    
-    
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (e.getSource().equals(view.getjMenu_Alumnos())) {
-            try {
-                studentsController = new StudentsController();
-            } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
     private void initializeButtons() {
-        view.getjMenu_Alumnos().addMouseListener(this);
-        view.getjMenu_Libros().addMouseListener(this);
-        view.getjMenu_Usuarios().addMouseListener(this);
-        view.getjMenu_Prestamos().addMouseListener(this);
+        view.getjMenu_Alumnos().addMouseListener(events);
+        view.getjMenu_Libros().addMouseListener(events);
+        view.getjMenu_Usuarios().addMouseListener(events);
+        view.getjMenu_Prestamos().addMouseListener(events);
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {       
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
+    public void StudentsMenu() {
+        if (studentsController == null) {
+            try {
+                studentsController = new StudentsController(this);
+            } catch (SQLException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            studentsController.limpiar();
+            studentsController.getView().setVisible(true);
+        }
     }
 }
