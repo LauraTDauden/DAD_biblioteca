@@ -14,6 +14,7 @@ public class MainController {
 
     private static MainView view;
     private StudentsController studentsController;
+    private UsersController usersController;
     private MainEvents events;
 
     public MainController() {
@@ -47,6 +48,19 @@ public class MainController {
         } else {
             studentsController.limpiar();
             studentsController.getView().setVisible(true);
+        }
+    }
+    
+    public void UsersMenu() {
+        if (usersController == null) {
+            try {
+                usersController = new UsersController(this);
+            } catch (SQLException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            //usersController.limpiar();
+            usersController.getView().setVisible(true);
         }
     }
 }
