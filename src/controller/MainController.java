@@ -15,6 +15,7 @@ public class MainController {
     private static MainView view;
     private StudentsController studentsController;
     private UsersController usersController;
+    private BooksController booksController;
     private MainEvents events;
 
     public MainController() {
@@ -61,6 +62,19 @@ public class MainController {
         } else {
             //usersController.limpiar();
             usersController.getView().setVisible(true);
+        }
+    }
+    
+     public void BooksMenu() {
+        if (booksController == null) {
+            try {
+                booksController = new BooksController(this);
+            } catch (SQLException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            //usersController.limpiar();
+            booksController.getView().setVisible(true);
         }
     }
 }

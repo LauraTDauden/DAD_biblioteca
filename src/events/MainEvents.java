@@ -26,6 +26,10 @@ public class MainEvents implements MouseListener {
          if (e.getSource().equals(controller.getView().getjMenu_Usuarios())) {
             controller.UsersMenu();
         }
+         
+         if (e.getSource().equals(controller.getView().getjMenu_Libros())) {
+            controller.BooksMenu();
+        }
     }
 
     @Override
