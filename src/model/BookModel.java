@@ -110,11 +110,11 @@ public class BookModel {
     //LISTAR LIBRO (y buscar)
     public void search(String fieldText) {
         try {
-            query.SQLQuery("SELECT * FROM libros WHERE titulo LIKE '" + fieldText + "%'"
-                    + "OR autor LIKE '" + fieldText + "%'"
-                    + "OR editorial LIKE '" + fieldText + "%'"
-                    + "OR asignatura LIKE '" + fieldText + "%'"
-                    + "OR estado LIKE '" + fieldText + "%'");
+            query.SQLQuery("SELECT * FROM libros WHERE titulo LIKE '%" + fieldText + "%'"
+                    + "OR autor LIKE '%" + fieldText + "%'"
+                    + "OR editorial LIKE '%" + fieldText + "%'"
+                    + "OR asignatura LIKE '%" + fieldText + "%'"
+                    + "OR estado LIKE '%" + fieldText + "%'");
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }

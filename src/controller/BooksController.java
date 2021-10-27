@@ -42,6 +42,7 @@ public class BooksController {
         view.getjButton_modificar().addActionListener(events);
         view.getjButton_listar().addActionListener(events);
         view.getjButton_limpiar().addActionListener(events);
+        view.getjTextField_searchBar().addKeyListener(events);
     }
 
     private void loadBook() {
