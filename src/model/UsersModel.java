@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -65,4 +66,17 @@ public class UsersModel {
 
     }
 
+    //TABLA
+    public void populateTable(String text, DefaultTableModel table) {
+        search(text);
+        try {
+            while (query.getResultset().next()) {
+                String name = query.getResultset().getString("usuario");
+                table.addRow(new Object[]{name});
+            }
+            query.closeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

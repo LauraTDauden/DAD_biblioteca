@@ -106,23 +106,8 @@ public class BooksController {
     }
 
     public void addTableRows() {
-        try {
             clearTable();
-            model.search(view.getjTextField_searchBar().getText());
-            while (model.getQuery().getResultset().next()) {
-                String codigo = model.getQuery().getResultset().getString("codigo");
-                String titulo = model.getQuery().getResultset().getString("titulo");
-                String autor = model.getQuery().getResultset().getString("autor");
-                String editorial = model.getQuery().getResultset().getString("editorial");
-                String asignatura = model.getQuery().getResultset().getString("asignatura");
-                String estado = model.getQuery().getResultset().getString("estado");
-
-                table.addRow(new Object[]{codigo, titulo, autor, editorial, asignatura, estado});
-            }
-            model.getQuery().closeQuery();
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            model.populateTable(view.getjTextField_searchBar().getText(), table);  
     }
 
     //verificar datos obligatorios

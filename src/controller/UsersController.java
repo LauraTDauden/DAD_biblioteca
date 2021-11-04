@@ -87,18 +87,9 @@ public class UsersController {
         }
     }
 
-    public void addTableRows() {
-        try {
+    public void addTableRows() {     
             clearTable();
-            model.search(view.getjTextField_searchBar().getText());
-            while (model.getQuery().getResultset().next()) {
-                String name = model.getQuery().getResultset().getString("usuario");
-                table.addRow(new Object[]{name});
-            }
-            model.getQuery().closeQuery();
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            model.populateTable(view.getjTextField_searchBar().getText(), table);               
     }
 
     private void clearFields() {

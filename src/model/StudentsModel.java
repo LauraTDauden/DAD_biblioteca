@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -93,6 +94,25 @@ public class StudentsModel {
     public void delete(String dni) {
         try {
             query.SQLUpdate("DELETE FROM alumnos WHERE dni ='" + dni + "'");
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    //TABLA
+    public void populateTable(String text, DefaultTableModel table) {
+        search(text);
+        try {
+            while (query.getResultset().next()) {
+                String dni = query.getResultset().getString("dni");
+                String nombre = query.getResultset().getString("nombre");
+                String apellido1 = query.getResultset().getString("apellido1");
+                String apellido2 = query.getResultset().getString("apellido2");
+                
+                table.addRow(new Object[]{dni, nombre, apellido1, apellido2});               
+            }
+            query.closeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }

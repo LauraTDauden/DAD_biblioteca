@@ -3,8 +3,6 @@ package controller;
 import dto_entities.Student;
 import events.StudentsEvents;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.StudentsModel;
@@ -31,11 +29,11 @@ public class StudentsController {
             model = new StudentsModel();
         }
     }
- 
+
     public StudentsView getView() {
         return view;
     }
-       
+
     private void initializeButtons() {
         view.getjButton_alta().addActionListener(events);
         view.getjButton_baja().addActionListener(events);
@@ -102,21 +100,8 @@ public class StudentsController {
     }
 
     public void addTableRows() {
-        try {
-            clearTable();
-            model.search(view.getjTextField_searchBar().getText());
-            while (model.getQuery().getResultset().next()) {
-                String dni = model.getQuery().getResultset().getString("dni");
-                String nombre = model.getQuery().getResultset().getString("nombre");
-                String apellido1 = model.getQuery().getResultset().getString("apellido1");
-                String apellido2 = model.getQuery().getResultset().getString("apellido2");
-
-                table.addRow(new Object[]{dni, nombre, apellido1, apellido2});
-            }
-            model.getQuery().closeQuery();
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        clearTable();
+        model.populateTable(view.getjTextField_searchBar().getText(), table);      
     }
 
     //verificar datos obligatorios

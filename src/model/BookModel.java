@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -115,6 +116,26 @@ public class BookModel {
                     + "OR editorial LIKE '%" + fieldText + "%'"
                     + "OR asignatura LIKE '%" + fieldText + "%'"
                     + "OR estado LIKE '%" + fieldText + "%'");
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //TABLA
+    public void populateTable(String text, DefaultTableModel table) {
+        search(text);
+        try {
+            while (query.getResultset().next()) {
+                String codigo = query.getResultset().getString("codigo");
+                String titulo = query.getResultset().getString("titulo");
+                String autor = query.getResultset().getString("autor");
+                String editorial = query.getResultset().getString("editorial");
+                String asignatura = query.getResultset().getString("asignatura");
+                String estado = query.getResultset().getString("estado");
+
+                table.addRow(new Object[]{codigo, titulo, autor, editorial, asignatura, estado});
+            }
+            query.closeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
