@@ -48,7 +48,7 @@ public class UsersModel {
     //modificar (UPDATE)
     public void changePassword(User user) {
         try {
-            query.SQLUpdate("UPDATE usuarios SET clave='" + user.getPass() + "'");
+            query.SQLUpdate("UPDATE usuarios SET clave='" + user.getPass() + "' WHERE usuario ='" + user.getUserName() + "'");
             JOptionPane.showMessageDialog(null, "Contraseña actualizada.");
         } catch (SQLException ex) {
             Logger.getLogger(UsersModel.class.getName()).log(Level.SEVERE, null, ex);
