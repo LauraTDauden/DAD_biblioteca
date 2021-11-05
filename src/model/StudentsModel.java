@@ -40,10 +40,10 @@ public class StudentsModel {
     //buscar (READ)
     public void search(String fieldText) {
         try {
-            query.SQLQuery("SELECT * FROM alumnos WHERE dni LIKE '" + fieldText + "%'"
-                    + "OR nombre LIKE '" + fieldText + "%'"
-                    + "OR apellido1 LIKE '" + fieldText + "%'"
-                    + "OR apellido2 LIKE '" + fieldText + "%'");
+            query.SQLQuery("SELECT * FROM alumnos WHERE dni LIKE '%" + fieldText + "%'"
+                    + "OR nombre LIKE '%" + fieldText + "%'"
+                    + "OR apellido1 LIKE '%" + fieldText + "%'"
+                    + "OR apellido2 LIKE '%" + fieldText + "%'");
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
