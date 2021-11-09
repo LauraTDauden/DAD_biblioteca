@@ -24,55 +24,75 @@ public class BookModel {
         return query;
     }
 
-    //AÑADIR LIBRO   
+    //AÑADIR LIBRO       
     public void add(Book book) {
         try {
-            query.SQLUpdate("INSERT INTO libros"
+            query.prepareSQL("INSERT INTO libros"
                     + "(codigo, titulo, autor, editorial, asignatura, estado)"
-                    + "VALUES ('" + book.getCode() + "','" + book.getTitle()
-                    + "', '" + book.getAuthor()
-                    + "','" + book.getPublisher() + "', '"
-                    + book.getSubject() + "', '"
-                    + book.getCondition() + "')");
+                    + "VALUES (?,?,?,?,?,?)");
+            query.getPreparedStatement().setInt(1, book.getCode());
+            query.getPreparedStatement().setString(2, book.getTitle());
+            query.getPreparedStatement().setString(3, book.getAuthor());
+            query.getPreparedStatement().setString(4, book.getPublisher());
+            query.getPreparedStatement().setString(5, book.getSubject());
+            query.getPreparedStatement().setString(6, book.getCondition());
+            query.SQLUpdate();
         } catch (SQLException ex) {
-            //Logger.getLogger(BookModel.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
     //ELIMIAR LIBRO   
     public void delete(int code) {
         try {
-            query.SQLUpdate("DELETE FROM libros WHERE codigo ='" + code + "'");
+            query.prepareSQL("DELETE FROM alumnos WHERE codigo =?");
+            query.getPreparedStatement().setInt(1, code);
+            query.SQLUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
+
     }
 
     //MODIFICAR LIBRO       
     private void updateTitle(Book book) throws SQLException {
-        query.SQLUpdate("UPDATE libros SET titulo='" + book.getTitle() + "'"
-                + "WHERE codigo = '" + book.getCode() + "'");
+        query.prepareSQL("UPDATE libros SET titulo=?"
+                + "WHERE codigo = ?");
+        query.getPreparedStatement().setString(1, book.getTitle());
+        query.getPreparedStatement().setInt(2, book.getCode());
+        query.SQLUpdate();
     }
 
     private void updateAuthor(Book book) throws SQLException {
-        query.SQLUpdate("UPDATE libros SET autor='" + book.getAuthor() + "'"
-                + "WHERE codigo = '" + book.getCode() + "'");
+        query.prepareSQL("UPDATE libros SET autor=?"
+                + "WHERE codigo = ?");
+        query.getPreparedStatement().setString(1, book.getAuthor());
+        query.getPreparedStatement().setInt(2, book.getCode());
+        query.SQLUpdate();
     }
 
     private void updatePublisher(Book book) throws SQLException {
-        query.SQLUpdate("UPDATE libros SET editorial='" + book.getPublisher() + "'"
-                + "WHERE codigo = '" + book.getCode() + "'");
+        query.prepareSQL("UPDATE libros SET editorial=?"
+                + "WHERE codigo = ?");
+        query.getPreparedStatement().setString(1, book.getPublisher());
+        query.getPreparedStatement().setInt(2, book.getCode());
+        query.SQLUpdate();
     }
 
     private void updateSubject(Book book) throws SQLException {
-        query.SQLUpdate("UPDATE libros SET asignatura='" + book.getSubject() + "'"
-                + "WHERE codigo = '" + book.getCode() + "'");
+        query.prepareSQL("UPDATE libros SET asignatura=?"
+                + "WHERE codigo = ?");
+        query.getPreparedStatement().setString(1, book.getSubject());
+        query.getPreparedStatement().setInt(2, book.getCode());
+        query.SQLUpdate();
     }
 
     private void updateCondition(Book book) throws SQLException {
-        query.SQLUpdate("UPDATE libros SET estado='" + book.getCondition() + "'"
-                + "WHERE codigo = '" + book.getCode() + "'");
+        query.prepareSQL("UPDATE libros SET estado=?"
+                + "WHERE codigo = ?");
+        query.getPreparedStatement().setString(1, book.getCondition());
+        query.getPreparedStatement().setInt(2, book.getCode());
+        query.SQLUpdate();
     }
 
     public void updateInfo(Book book) {
@@ -104,23 +124,27 @@ public class BookModel {
                 JOptionPane.showMessageDialog(null, "No ha introducido ningún dato para modificar.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
     //LISTAR LIBRO (y buscar)
     public void search(String fieldText) {
         try {
-            query.SQLQuery("SELECT * FROM libros WHERE titulo LIKE '%" + fieldText + "%'"
-                    + "OR autor LIKE '%" + fieldText + "%'"
-                    + "OR editorial LIKE '%" + fieldText + "%'"
-                    + "OR asignatura LIKE '%" + fieldText + "%'"
-                    + "OR estado LIKE '%" + fieldText + "%'");
+            query.prepareSQL("SELECT * FROM libros WHERE titulo LIKE ? "
+                    + "OR autor LIKE ? "
+                    + "OR editorial LIKE ? "
+                    + "OR asignatura LIKE ?"
+                    + "OR estado LIKE ?");
+            for (int i = 1; i < 6; i++) {
+                query.getPreparedStatement().setString(i, "%" + fieldText + "%");
+            }
+            query.SQLQuery();
         } catch (SQLException ex) {
-            Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
-    
+
     //TABLA
     public void populateTable(String text, DefaultTableModel table) {
         search(text);

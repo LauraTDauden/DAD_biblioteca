@@ -22,7 +22,10 @@ public class LoginModel {
     public boolean validateUserPassword(User user) {
         boolean valid = false;
         try {           
-            query.SQLQuery("SELECT * FROM usuarios WHERE usuario ='" + user.getUserName() + "' and clave = '" + user.getPass() + "'");
+            query.prepareSQL("SELECT * FROM usuarios WHERE usuario = ? and clave = ?");
+            query.getPreparedStatement().setString(1, user.getUserName());
+            query.getPreparedStatement().setString(2, user.getPass());
+            query.SQLQuery();
             if (!query.getResultset().next()) {
                 JOptionPane.showMessageDialog(null, "El usuario y/o la contraseña introducidos no son correctos.");
             } else {

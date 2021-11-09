@@ -13,13 +13,13 @@ import javax.swing.table.DefaultTableModel;
  * @author LauraTD
  */
 public class StudentsModel {
-
+    
     private DataQueries query;
-
+    
     public StudentsModel() throws SQLException {
         query = new DataQueries();
     }
-
+    
     public DataQueries getQuery() {
         return query;
     }
@@ -28,10 +28,14 @@ public class StudentsModel {
     //alta (CREATE)
     public void add(Student student) {
         try {
-            query.SQLUpdate("INSERT INTO alumnos"
+            query.prepareSQL("INSERT INTO alumnos"
                     + "(dni, nombre, apellido1, apellido2)"
-                    + "VALUES ('" + student.getDni() + "', '" + student.getName() + "','" + student.getSurname1() + "', '"
-                    + student.getSurname2() + "')");
+                    + "VALUES (?,?,?,?)");
+            query.getPreparedStatement().setString(1, student.getDni());
+            query.getPreparedStatement().setString(2, student.getName());
+            query.getPreparedStatement().setString(3, student.getSurname1());
+            query.getPreparedStatement().setString(4, student.getSurname2());
+            query.SQLUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,10 +44,13 @@ public class StudentsModel {
     //buscar (READ)
     public void search(String fieldText) {
         try {
-            query.SQLQuery("SELECT * FROM alumnos WHERE dni LIKE '%" + fieldText + "%'"
-                    + "OR nombre LIKE '%" + fieldText + "%'"
-                    + "OR apellido1 LIKE '%" + fieldText + "%'"
-                    + "OR apellido2 LIKE '%" + fieldText + "%'");
+            query.prepareSQL("SELECT * FROM alumnos WHERE dni LIKE ? "
+                    + "OR nombre LIKE ? OR apellido1 LIKE ? "
+                    + "OR apellido2 LIKE ?");
+            for (int i = 1; i < 5; i++) {
+                query.getPreparedStatement().setString(i, "%"+fieldText+"%");
+            }
+            query.SQLQuery();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,30 +81,41 @@ public class StudentsModel {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void updateName(Student student) throws SQLException {
-        query.SQLUpdate("UPDATE alumnos SET nombre='" + student.getName() + "'"
-                + "WHERE dni = '" + student.getDni() + "'");
+        query.prepareSQL("UPDATE alumnos SET nombre=?"
+                + "WHERE dni = ?");
+        query.getPreparedStatement().setString(1, student.getName());
+        query.getPreparedStatement().setString(2, student.getDni());
+        query.SQLUpdate();
     }
-
+    
     private void updateSurname1(Student student) throws SQLException {
-        query.SQLUpdate("UPDATE alumnos SET apellido1='" + student.getSurname1() + "'"
-                + "WHERE dni = '" + student.getDni() + "'");
+        query.prepareSQL("UPDATE alumnos SET apellido1=?"
+                + "WHERE dni = ?");
+        query.getPreparedStatement().setString(1, student.getSurname1());
+        query.getPreparedStatement().setString(2, student.getDni());
+        query.SQLUpdate();
     }
-
+    
     private void updateSurname2(Student student) throws SQLException {
-        query.SQLUpdate("UPDATE alumnos SET apellido2='" + student.getSurname2() + "'"
-                + "WHERE dni = '" + student.getDni() + "'");
+        query.prepareSQL("UPDATE alumnos SET apellido2=?"
+                + "WHERE dni = ?");
+        query.getPreparedStatement().setString(1, student.getSurname2());
+        query.getPreparedStatement().setString(2, student.getDni());
+        query.SQLUpdate();
     }
 
     //baja (DELETE)
     public void delete(String dni) {
         try {
-            query.SQLUpdate("DELETE FROM alumnos WHERE dni ='" + dni + "'");
+            query.prepareSQL("DELETE FROM alumnos WHERE dni =?");
+            query.getPreparedStatement().setString(1, dni);
+            query.SQLUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
 
     //TABLA
@@ -110,13 +128,13 @@ public class StudentsModel {
                 String apellido1 = query.getResultset().getString("apellido1");
                 String apellido2 = query.getResultset().getString("apellido2");
                 
-                table.addRow(new Object[]{dni, nombre, apellido1, apellido2});               
+                table.addRow(new Object[]{dni, nombre, apellido1, apellido2});
             }
             query.closeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
 }

@@ -28,18 +28,23 @@ public class UsersModel {
     //alta (CREATE)
     public void add(User user) {
         try {
-            query.SQLUpdate("INSERT INTO usuarios"
+            query.prepareSQL("INSERT INTO usuarios"
                     + "(usuario, clave)"
-                    + "VALUES ('" + user.getUserName() + "', '" + user.getPass() + "')");
+                    + "VALUES (?,?)");
+            query.getPreparedStatement().setString(1, user.getUserName());
+            query.getPreparedStatement().setString(2, user.getPass());
+            query.SQLUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UsersModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
     //buscar (READ)
     public void search(String fieldText) {
         try {
-            query.SQLQuery("SELECT usuario FROM usuarios WHERE usuario LIKE '" + fieldText + "%'");
+            query.prepareSQL("SELECT usuario FROM usuarios WHERE usuario LIKE ?");
+            query.getPreparedStatement().setString(1, "%" + fieldText + "%");
+            query.SQLQuery();
         } catch (SQLException ex) {
             Logger.getLogger(UsersModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,22 +53,26 @@ public class UsersModel {
     //modificar (UPDATE)
     public void changePassword(User user) {
         try {
-            query.SQLUpdate("UPDATE usuarios SET clave='" + user.getPass() + "' WHERE usuario ='" + user.getUserName() + "'");
+            query.prepareSQL("UPDATE usuarios SET clave= ? WHERE usuario = ? ");
+            query.getPreparedStatement().setString(1, user.getPass());
+            query.getPreparedStatement().setString(2, user.getUserName());
+            query.SQLUpdate();
             JOptionPane.showMessageDialog(null, "Contraseña actualizada.");
         } catch (SQLException ex) {
             Logger.getLogger(UsersModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     //baja (DELETE)
     public void delete(String name) {
         try {
-            query.SQLUpdate("DELETE FROM usuarios WHERE usuario ='" + name + "'");
+            query.prepareSQL("DELETE FROM usuarios WHERE usuario =?");
+            query.getPreparedStatement().setString(1, name);
+            query.SQLUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UsersModel.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     //TABLA
